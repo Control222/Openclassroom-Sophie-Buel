@@ -24,5 +24,7 @@ loginForm.addEventListener('submit', async function (event) {
 
     // Redirection index.html
     window.location.href = 'index.html';
+  } else {
+    alert('Email ou mot de passe incorrect');
   }
 });
