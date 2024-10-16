@@ -1,5 +1,28 @@
 const reponse = await fetch('http://localhost:5678/api/works');
-const woorks = await reponse.json();
+const works = await reponse.json();
+
+/* GALLERY MAIN */
+function genererProjets(works) {
+  const mainGalleryContainer = document.querySelector('.gallery');
+
+  for (let i = 0; i < works.length; i++) {
+    const article = works[i];
+
+    const projetElement = document.createElement('figure');
+
+    const imageElement = document.createElement('img');
+    imageElement.src = article.imageUrl;
+
+    const captionElement = document.createElement('figcaption');
+    captionElement.innerText = article.title;
+
+    mainGalleryContainer.appendChild(projetElement);
+    projetElement.appendChild(imageElement);
+    projetElement.appendChild(captionElement);
+  }
+}
+
+genererProjets();
 
 /* MODAL */
 const modal = document.querySelector('.modal');
