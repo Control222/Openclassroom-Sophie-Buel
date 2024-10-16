@@ -39,5 +39,6 @@ ajouterPhotoButton.addEventListener('click', () => {
 previousModalButton.addEventListener('click', () => {
   secondModal.classList.add('hidden');
   galleryContainer.classList.remove('hidden');
+  previousModalButton.classList.add('hidden');
   modalHeader.style.justifyContent = 'end';
 });
