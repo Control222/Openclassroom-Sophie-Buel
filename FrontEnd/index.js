@@ -22,7 +22,7 @@ function genererProjets(works) {
   }
 }
 
-genererProjets();
+genererProjets(works);
 
 /* MODAL */
 const modal = document.querySelector('.modal');
