@@ -14,4 +14,15 @@ loginForm.addEventListener('submit', async function (event) {
       password: passwordInput.value,
     }),
   });
+
+  // Réponse API
+  if (response.ok) {
+    const data = await response.json();
+    const token = data.token;
+
+    localStorage.setItem('token', token);
+
+    // Redirection index.html
+    window.location.href = 'index.html';
+  }
 });
