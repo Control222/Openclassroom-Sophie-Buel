@@ -5,7 +5,7 @@ const woorks = await reponse.json();
 const modal = document.querySelector('.modal');
 const openModalButton = document.querySelector('.open__modal');
 const closeModalButton = document.querySelector('.close__modal');
-const previousModal = document.querySelector('.modal__previous');
+const previousModalButton = document.querySelector('.modal__previous');
 
 openModalButton.addEventListener('click', () => {
   modal.showModal();
@@ -20,4 +20,24 @@ modal.addEventListener('click', (e) => {
   if (e.target === modal) {
     modal.close();
   }
+});
+
+// Changer de modal
+
+const ajouterPhotoButton = document.querySelector('.modal__btn');
+const secondModal = document.querySelector('.modal__container__ajouter');
+const galleryContainer = document.querySelector('.modal__container__gallery');
+const modalHeader = document.querySelector('.modal__header');
+
+ajouterPhotoButton.addEventListener('click', () => {
+  galleryContainer.classList.add('hidden');
+  secondModal.classList.remove('hidden');
+  previousModalButton.classList.remove('hidden');
+  modalHeader.style.justifyContent = 'space-between';
+});
+
+previousModalButton.addEventListener('click', () => {
+  secondModal.classList.add('hidden');
+  galleryContainer.classList.remove('hidden');
+  modalHeader.style.justifyContent = 'end';
 });
