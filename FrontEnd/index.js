@@ -24,6 +24,38 @@ function genererProjets(works) {
 
 genererProjets(works);
 
+/* FILTERS */
+
+const btnFiltrerTous = document.getElementById('btn__tous');
+btnFiltrerTous.addEventListener('click', () => {
+  const filtrerTous = works.slice();
+  genererProjets(filtrerTous);
+});
+
+const btnFiltrerObjets = document.getElementById('btn__objets');
+btnFiltrerObjets.addEventListener('click', () => {
+  const filtreObjets = works.filter(function (work) {
+    return work.category.name === 'Objets';
+  });
+  genererProjets(filtreObjets);
+});
+
+const btnFiltrerAppartements = document.getElementById('btn__appartements');
+btnFiltrerAppartements.addEventListener('click', () => {
+  const filtrerAppartements = works.filter(function (work) {
+    return work.category.name === 'Appartements';
+  });
+  genererProjets(filtrerAppartements);
+});
+
+const btnFiltrerHotels = document.getElementById('btn__hotels');
+btnFiltrerHotels.addEventListener('click', () => {
+  const filtreHotels = works.filter((work) => {
+    return work.category.name === 'Hotels & restaurants';
+  });
+  genererProjets(filtreHotels);
+});
+
 /* MODAL */
 const modal = document.querySelector('.modal');
 const openModalButton = document.querySelector('.open__modal');
