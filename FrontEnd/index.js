@@ -78,6 +78,8 @@ function modeAdmin() {
     logoutButton.classList.remove('hidden');
 
     projetsContainer.style.marginBottom = '90px';
+
+    openModalButton.classList.remove('hidden');
   } else {
     bandeau.classList.add('hidden');
 
@@ -87,10 +89,18 @@ function modeAdmin() {
     logoutButton.classList.add('hidden');
 
     projetsContainer.style.marginBottom = '50px';
+
+    openModalButton.classList.add('hidden');
   }
 }
 
 modeAdmin();
+
+// Deconnexion
+
+logoutButton.addEventListener('click', () => {
+  localStorage.removeItem('token');
+});
 
 /* MODAL */
 const modal = document.querySelector('.modal');
