@@ -58,6 +58,27 @@ btnFiltrerHotels.addEventListener('click', () => {
   genererProjets(filtreHotels);
 });
 
+/* MODAL */
+const modal = document.querySelector('.modal');
+const openModalButton = document.querySelector('.open__modal');
+const closeModalButton = document.querySelector('.close__modal');
+const previousModalButton = document.querySelector('.modal__previous');
+
+openModalButton.addEventListener('click', () => {
+  modal.showModal();
+});
+
+closeModalButton.addEventListener('click', () => {
+  modal.close();
+});
+
+modal.addEventListener('click', (e) => {
+  console.log(e.target);
+  if (e.target === modal) {
+    modal.close();
+  }
+});
+
 /* MODE ADMIN */
 
 const token = localStorage.getItem('token');
@@ -102,27 +123,6 @@ logoutButton.addEventListener('click', () => {
   localStorage.removeItem('token');
 });
 
-/* MODAL */
-const modal = document.querySelector('.modal');
-const openModalButton = document.querySelector('.open__modal');
-const closeModalButton = document.querySelector('.close__modal');
-const previousModalButton = document.querySelector('.modal__previous');
-
-openModalButton.addEventListener('click', () => {
-  modal.showModal();
-});
-
-closeModalButton.addEventListener('click', () => {
-  modal.close();
-});
-
-modal.addEventListener('click', (e) => {
-  console.log(e.target);
-  if (e.target === modal) {
-    modal.close();
-  }
-});
-
 // Changer de modal
 
 const ajouterPhotoButton = document.querySelector('.modal__btn');
@@ -143,3 +143,27 @@ previousModalButton.addEventListener('click', () => {
   previousModalButton.classList.add('hidden');
   modalHeader.style.justifyContent = 'end';
 });
+
+/* GALLERY MODAL */
+
+function genererProjetsModal(works) {
+  const modalGalleryContainer = document.querySelector('.modal__gallery');
+
+  modalGalleryContainer.innerHTML = '';
+
+  for (let i = 0; i < works.length; i++) {
+    const modalArticle = works[i];
+
+    const modalProjetElement = document.createElement('figure');
+    modalProjetElement.setAttribute('id', modalArticle.id);
+
+    const modalImageElement = document.createElement('img');
+    modalImageElement.src = modalArticle.imageUrl;
+    modalImageElement.className += 'gallery__image';
+
+    modalGalleryContainer.appendChild(modalProjetElement);
+    modalProjetElement.appendChild(modalImageElement);
+  }
+}
+
+genererProjetsModal(works);
