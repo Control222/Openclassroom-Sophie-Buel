@@ -5,6 +5,8 @@ const works = await reponse.json();
 function genererProjets(works) {
   const mainGalleryContainer = document.querySelector('.gallery');
 
+  mainGalleryContainer.innerHTML = '';
+
   for (let i = 0; i < works.length; i++) {
     const article = works[i];
 
@@ -55,6 +57,40 @@ btnFiltrerHotels.addEventListener('click', () => {
   });
   genererProjets(filtreHotels);
 });
+
+/* MODE ADMIN */
+
+const token = localStorage.getItem('token');
+
+const bandeau = document.querySelector('.bandeau');
+const filtersContainer = document.querySelector('.div__filter');
+const loginButton = document.querySelector('.login');
+const logoutButton = document.querySelector('.logout');
+const projetsContainer = document.querySelector('.projets');
+
+function modeAdmin() {
+  if (token) {
+    bandeau.classList.remove('hidden');
+
+    filtersContainer.classList.add('hidden');
+
+    loginButton.classList.add('hidden');
+    logoutButton.classList.remove('hidden');
+
+    projetsContainer.style.marginBottom = '90px';
+  } else {
+    bandeau.classList.add('hidden');
+
+    filtersContainer.classList.remove('hidden');
+
+    loginButton.classList.remove('hidden');
+    logoutButton.classList.add('hidden');
+
+    projetsContainer.style.marginBottom = '50px';
+  }
+}
+
+modeAdmin();
 
 /* MODAL */
 const modal = document.querySelector('.modal');
