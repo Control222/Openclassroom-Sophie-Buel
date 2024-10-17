@@ -173,7 +173,7 @@ function genererProjetsModal(works) {
     modalProjetElement.appendChild(trashButton);
 
     trashButton.addEventListener('click', () => {
-      deletePprojet(modalArticle.id);
+      deleteProjet(modalArticle.id);
     });
   }
 }
@@ -217,4 +217,5 @@ function removeImageFromGallery(imageId) {
     mainImage.remove();
   }
 }
+
 genererProjetsModal(works);
