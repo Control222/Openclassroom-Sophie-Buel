@@ -11,6 +11,7 @@ function genererProjets(works) {
     const article = works[i];
 
     const projetElement = document.createElement('figure');
+    projetElement.setAttribute('id', article.id);
 
     const imageElement = document.createElement('img');
     imageElement.src = article.imageUrl;
@@ -177,4 +178,43 @@ function genererProjetsModal(works) {
   }
 }
 
+/* DELETE PROJET */
+
+async function deleteProjet(imageId) {
+  const confirmDelete = confirm(
+    'Etes-vous sûr de vouloir supprimer ce projet?'
+  );
+  if (!confirmDelete) {
+    return;
+  }
+
+  try {
+    //Request to API
+    const response = await fetch(`http://localhost:5678/api/works/${imageId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      removeImageFromGallery(imageId);
+    } else {
+      console.error('Echec de la suppression du projet');
+    }
+  } catch (error) {
+    console.error('Une erreur est survenue lors de la suppression du projet');
+  }
+}
+
+function removeImageFromGallery(imageId) {
+  const modalImage = document.getElementById(imageId);
+  if (modalImage) {
+    modalImage.remove();
+  }
+  const mainImage = document.getElementById(imageId);
+  if (mainImage) {
+    mainImage.remove();
+  }
+}
 genererProjetsModal(works);
