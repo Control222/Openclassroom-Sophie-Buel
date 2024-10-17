@@ -213,9 +213,29 @@ function removeImageFromGallery(imageId) {
     modalImage.remove();
   }
   const mainImage = document.getElementById(imageId);
+  console.log(mainImage);
   if (mainImage) {
     mainImage.remove();
   }
 }
 
 genererProjetsModal(works);
+
+/* CATEGORIE OPTIONS */
+
+async function categorieOptions() {
+  const response = await fetch('http://localhost:5678/api/categories');
+  const categories = await response.json();
+
+  const categorieSelect = document.getElementById('modal__image__categorie');
+  categories.forEach((categorie) => {
+    const option = document.createElement('option');
+    option.value = categorie.id;
+    option.innerText = categorie.name;
+    option.classList.add('modal__option');
+
+    categorieSelect.appendChild(option);
+  });
+}
+
+categorieOptions();
