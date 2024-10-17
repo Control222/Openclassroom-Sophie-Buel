@@ -161,8 +161,19 @@ function genererProjetsModal(works) {
     modalImageElement.src = modalArticle.imageUrl;
     modalImageElement.className += 'gallery__image';
 
+    const trashIcon = document.createElement('i');
+    trashIcon.classList.add('fa-solid', 'fa-trash-can', 'delete__icon');
+    const trashButton = document.createElement('button');
+    trashButton.classList.add('delete__button');
+
+    trashButton.appendChild(trashIcon);
     modalGalleryContainer.appendChild(modalProjetElement);
     modalProjetElement.appendChild(modalImageElement);
+    modalProjetElement.appendChild(trashButton);
+
+    trashButton.addEventListener('click', () => {
+      deletePprojet(modalArticle.id);
+    });
   }
 }
 
