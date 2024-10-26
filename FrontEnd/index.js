@@ -126,12 +126,12 @@ logoutButton.addEventListener('click', () => {
 
 // Changer de modal
 
-const ajouterPhotoButton = document.querySelector('.modal__btn');
+const buttonToSecondModal = document.querySelector('.modal__btn');
 const secondModal = document.querySelector('.modal__container__ajouter');
 const galleryContainer = document.querySelector('.modal__container__gallery');
 const modalHeader = document.querySelector('.modal__header');
 
-ajouterPhotoButton.addEventListener('click', () => {
+buttonToSecondModal.addEventListener('click', () => {
   galleryContainer.classList.add('hidden');
   secondModal.classList.remove('hidden');
   previousModalButton.classList.remove('hidden');
@@ -239,3 +239,78 @@ async function categorieOptions() {
 }
 
 categorieOptions();
+
+/* Probleme supprimer une photo dans modal galerie, à rajouter */
+
+/* FORM */
+
+const addPhotoForm = document.querySelector('.modal__form__upload');
+const titleInput = document.getElementById('modal__input__title');
+const categorySelect = document.getElementById('modal__image__categorie');
+
+addPhotoForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  // Prepare the data
+  const formData = new FormData();
+  formData.append('title', titleInput.value);
+  formData.append('category', categorySelect.value);
+  formData.append('image', fileInput.files[0]);
+
+  try {
+    // POST request to the API
+    const response = await fetch('http://localhost:5678/api/works', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response); /* TEST */
+
+    if (response.ok) {
+      const newWork = await response.json();
+
+      genererProjets([...works, newWork]);
+      genererProjetsModal([...works, newWork]);
+
+      addPhotoForm.reset();
+      previewContainer.style.backgroundImage = '';
+      alert('Photo added successfully!');
+    } else {
+      alert("Échec de l'ajout de la photo. Veuillez réessayer.");
+    }
+  } catch (error) {
+    console.error(
+      "Une erreur s'est produite lors du téléchargement de la photo:",
+      error
+    );
+    alert("Une erreur s'est produite, veuillez réessayer.");
+  }
+});
+
+/* PREVIEW IMAGE */
+
+const fileInput = document.getElementById('modal__file__input');
+const previewContainer = document.querySelector('.modal__preview');
+const ajouterPhotoButton = document.querySelector('.modal__ajouter__button');
+
+ajouterPhotoButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  fileInput.click();
+});
+
+fileInput.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      previewContainer.style.backgroundImage = `url(${e.target.result})`;
+      previewContainer.style.backgroundSize = 'cover';
+      previewContainer.style.backgroundPosition = 'center';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    alert('Please upload a valid image file (jpg, png).');
+  }
+});
