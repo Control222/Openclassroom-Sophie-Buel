@@ -277,6 +277,8 @@ addPhotoForm.addEventListener('submit', async (event) => {
       addPhotoForm.reset();
       previewContainer.style.backgroundImage = '';
       alert('Photo added successfully!');
+    } else if (response.status === 401) {
+      alert('Non autorisé. Veuillez vous reconnecter.');
     } else {
       alert("Échec de l'ajout de la photo. Veuillez réessayer.");
     }
