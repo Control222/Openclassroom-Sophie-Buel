@@ -305,6 +305,8 @@ ajouterPhotoButton.addEventListener('click', (event) => {
 fileInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
   if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+    console.log('File selected', file.name);
+
     const reader = new FileReader();
     reader.onload = function (e) {
       previewContainer.style.backgroundImage = `url(${e.target.result})`;
