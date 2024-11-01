@@ -294,7 +294,7 @@ addPhotoForm.addEventListener('submit', async (event) => {
 /* PREVIEW IMAGE */
 
 const fileInput = document.getElementById('modal__file__input');
-const previewContainer = document.querySelector('.modal__preview');
+const previewImage = document.querySelector('.modal__upload');
 const ajouterPhotoButton = document.querySelector('.modal__ajouter__button');
 
 ajouterPhotoButton.addEventListener('click', (event) => {
@@ -304,17 +304,17 @@ ajouterPhotoButton.addEventListener('click', (event) => {
 
 fileInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
+
   if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
     console.log('File selected', file.name);
 
     const reader = new FileReader();
     reader.onload = function (e) {
-      previewContainer.style.backgroundImage = `url(${e.target.result})`;
-      previewContainer.style.backgroundSize = 'cover';
-      previewContainer.style.backgroundPosition = 'center';
+      previewImage.innerHTML = `<img src="${e.target.result}" height= "177px" width= "130px" alt="Image preview"  />`;
+      previewImage.style.padding = '0';
     };
     reader.readAsDataURL(file);
   } else {
-    alert('Please upload a valid image file (jpg, png).');
+    alert('Veuillez télécharger un fichier image valide (jpg, png).');
   }
 });
