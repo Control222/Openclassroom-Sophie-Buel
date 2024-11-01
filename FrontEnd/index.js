@@ -257,6 +257,11 @@ addPhotoForm.addEventListener('submit', async (event) => {
   formData.append('category', categorySelect.value);
   formData.append('image', fileInput.files[0]);
 
+  // TEST
+  console.log('Title:', titleInput.value);
+  console.log('Category:', categorySelect.value);
+  console.log('Image:', fileInput.files[0]);
+
   try {
     // POST request to the API
     const response = await fetch('http://localhost:5678/api/works', {
@@ -266,6 +271,7 @@ addPhotoForm.addEventListener('submit', async (event) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log('Response status:', response.status); /* TEST */
     console.log(response); /* TEST */
 
     if (response.ok) {
@@ -276,7 +282,7 @@ addPhotoForm.addEventListener('submit', async (event) => {
 
       addPhotoForm.reset();
       previewContainer.style.backgroundImage = '';
-      alert('Photo added successfully!');
+      alert('Photo ajoutée avec succès!');
     } else if (response.status === 401) {
       alert('Non autorisé. Veuillez vous reconnecter.');
     } else {
