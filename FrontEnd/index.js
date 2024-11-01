@@ -281,7 +281,6 @@ addPhotoForm.addEventListener('submit', async (event) => {
       genererProjetsModal([...works, newWork]);
 
       addPhotoForm.reset();
-      previewContainer.style.backgroundImage = '';
       alert('Photo ajoutée avec succès!');
     } else if (response.status === 401) {
       alert('Non autorisé. Veuillez vous reconnecter.');
