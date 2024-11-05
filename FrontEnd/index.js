@@ -71,12 +71,41 @@ openModalButton.addEventListener('click', () => {
 
 closeModalButton.addEventListener('click', () => {
   modal.close();
+
+  // Reset to first modal after closed
+  secondModal.classList.add('hidden');
+  galleryContainer.classList.remove('hidden');
+  previousModalButton.classList.add('hidden');
+  modalHeader.style.justifyContent = 'end';
+
+  // Clear the image preview
+  previewImage.innerHTML = `
+    <i class="fa-regular fa-image photo-icon"></i>
+    <button class="modal__ajouter__button">+ Ajouter photo</button>
+    <p class="modal__image__max">jpg, png : 4mo max</p>
+  `;
+  previewImage.style.padding = '20px';
+  fileInput.value = '';
 });
 
 modal.addEventListener('click', (e) => {
-  console.log(e.target);
   if (e.target === modal) {
     modal.close();
+
+    // Reset to first modal after closed
+    secondModal.classList.add('hidden');
+    galleryContainer.classList.remove('hidden');
+    previousModalButton.classList.add('hidden');
+    modalHeader.style.justifyContent = 'end';
+
+    // Clear the image preview
+    previewImage.innerHTML = `
+  <i class="fa-regular fa-image photo-icon"></i>
+  <button class="modal__ajouter__button">+ Ajouter photo</button>
+  <p class="modal__image__max">jpg, png : 4mo max</p>
+`;
+    previewImage.style.padding = '20px';
+    fileInput.value = '';
   }
 });
 
@@ -239,8 +268,6 @@ async function categorieOptions() {
 }
 
 categorieOptions();
-
-/* Probleme supprimer une photo dans modal galerie, à rajouter */
 
 /* FORM */
 
