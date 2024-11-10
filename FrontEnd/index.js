@@ -1,6 +1,8 @@
 const reponse = await fetch('http://localhost:5678/api/works');
 const works = await reponse.json();
 
+const maxSize = 4 * 1024 * 1024; /* 4mo */
+
 /* GALLERY MAIN */
 function genererProjets(works) {
   const mainGalleryContainer = document.querySelector('.gallery');
@@ -275,8 +277,20 @@ const addPhotoForm = document.querySelector('.modal__form__upload');
 const titleInput = document.getElementById('modal__input__title');
 const categorySelect = document.getElementById('modal__image__categorie');
 
+const fileInput = document.getElementById('modal__file__input');
+const previewImage = document.querySelector('.modal__upload');
+const ajouterPhotoButton = document.querySelector('.modal__ajouter__button');
+
 addPhotoForm.addEventListener('submit', async (event) => {
   event.preventDefault();
+
+  const file = fileInput.files[0];
+
+  // File size limit
+  if (file && file.size > maxSize) {
+    alert('La taille du fichier doit être inférieure à 4mo.');
+    return;
+  }
 
   // Prepare the data
   const formData = new FormData();
@@ -325,10 +339,6 @@ addPhotoForm.addEventListener('submit', async (event) => {
 
 /* PREVIEW IMAGE */
 
-const fileInput = document.getElementById('modal__file__input');
-const previewImage = document.querySelector('.modal__upload');
-const ajouterPhotoButton = document.querySelector('.modal__ajouter__button');
-
 ajouterPhotoButton.addEventListener('click', (event) => {
   event.preventDefault();
   fileInput.click();
@@ -338,6 +348,10 @@ fileInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
 
   if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+    if (file.size > maxSize) {
+      alert('La taille du fichier doit être inférieure à 4mo.');
+      return;
+    }
     console.log('File selected', file.name);
 
     const reader = new FileReader();
