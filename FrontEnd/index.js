@@ -348,6 +348,7 @@ fileInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
 
   if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+    // File size limit
     if (file.size > maxSize) {
       alert('La taille du fichier doit être inférieure à 4mo.');
       return;
